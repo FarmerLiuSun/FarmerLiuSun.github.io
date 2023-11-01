@@ -1,7 +1,6 @@
 import { defineConfig } from "vitepress";
 
 export default defineConfig({
-  outDir: "../../docs",
   title: `FarmerLiuShun`,
   description: "FarmerLiuShun 知识体系网站",
   base: "/",
