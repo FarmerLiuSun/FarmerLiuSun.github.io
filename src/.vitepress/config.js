@@ -1,11 +1,12 @@
 import { defineConfig } from "vitepress";
 
 export default defineConfig({
+  outDir: "../../docs",
   title: `FarmerLiuShun`,
   description: "FarmerLiuShun 知识体系网站",
   base: "/",
   head: [["link", { rel: "icon", href: "/logo.svg" }]],
-
+  outDir: "../docs",
   appearance: true, // 默认 true，设为 false 则无法切换dark/light主题，可选 'dark' true false
 
   markdown: {
