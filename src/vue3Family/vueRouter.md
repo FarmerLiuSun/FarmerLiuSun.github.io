@@ -63,6 +63,7 @@ onMounted(() => {
 
   <div class="base"></div>
   </div>
+  <MyBtn></MyBtn>
 
 </div>
 

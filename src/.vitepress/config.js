@@ -3,8 +3,8 @@ import { defineConfig } from "vitepress";
 import { resolve } from "node:path";
 
 export default defineConfig({
-  title: "FarmerLiu",
-  description: "FarmerLiu personal website",
+  title: "FarmerLiuSun",
+  description: "FarmerLiuSun personal website",
   base: "/",
   head: [["link", { rel: "icon", href: "/logo.svg" }]],
   outDir: "../docs",
@@ -37,12 +37,35 @@ export default defineConfig({
     darkModeSwitchTitle: "切换到深色模式",
     search: {
       provider: "local",
+      options: {
+        translations: {
+          button: {
+            buttonText: '搜索文档',
+            buttonAriaLabel: '搜索文档'
+          },
+          modal: {
+            searchBox: {
+              resetButtonTitle: '清除查询条件',
+              resetButtonAriaLabel: '清除查询条件',
+              cancelButtonText: '取消',
+              cancelButtonAriaLabel: '取消'
+            },
+            footer: {
+              selectText: '选择',
+              navigateText: '切换',
+              closeText: '关闭',
+              searchByText: '搜索提供者'
+            },
+          }
+        }
+      },
+
     },
     lastUpdated: {
       text: "最后更新时间",
     },
     nav: [
-      { text: "首页", link: "/" },
+      // { text: "首页", link: "/" },
       {
         text: "vue3全家桶",
         items: [
@@ -132,12 +155,10 @@ export default defineConfig({
         ],
       },
     },
-
     docFooter: {
       prev: "上一页",
       next: "下一页",
     },
-
     footer: {
       message: "Free & undefined",
     },
