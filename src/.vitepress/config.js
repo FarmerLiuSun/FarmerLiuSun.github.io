@@ -1,32 +1,47 @@
 import { defineConfig } from "vitepress";
 
+import { resolve } from "node:path";
+
 export default defineConfig({
-  title: `FarmerLiuShun`,
-  description: "FarmerLiuShun 知识体系网站",
+  title: "FarmerLiu",
+  description: "FarmerLiu personal website",
   base: "/",
   head: [["link", { rel: "icon", href: "/logo.svg" }]],
   outDir: "../docs",
   appearance: true, // 默认 true，设为 false 则无法切换dark/light主题，可选 'dark' true false
-
+  cleanUrls: true,
   markdown: {
     lineNumbers: true, // 是否显示行数，默认false
+    container: {
+      tipLabel: "提示",
+      warningLabel: "警告",
+      dangerLabel: "危险",
+      infoLabel: "信息",
+      detailsLabel: "详细信息",
+    },
   },
 
   themeConfig: {
     logo: "/logo.svg",
-    // socialLinks: [
-    //   { icon: "github", link: "https://github.com/vuejs/vitepress" },
-    // ],
-    outline: "deep",
-    outlineTitle: "当前页",
-    darkModeSwitchLabel: "外观",
+    // 友情链接地址
+    socialLinks: [
+      { icon: "github", link: "https://github.com/vuejs/vitepress" },
+    ],
+    outline: {
+      level: "deep",
+      label: "页面导航",
+    },
+    returnToTopLabel: "返回顶部",
+    darkModeSwitchLabel: "主题",
+    lightModeSwitchTitle: "切换到浅色模式",
+    darkModeSwitchTitle: "切换到深色模式",
     search: {
       provider: "local",
     },
+    lastUpdated: {
+      text: "最后更新时间",
+    },
     nav: [
-      // { text: "html", link: "/html/", activeMatch: "/html/" },
-      // { text: "css", link: "/css/", activeMatch: "/css/" },
-      // { text: "js", link: "/js/", activeMatch: "/js/" },
       { text: "首页", link: "/" },
       {
         text: "vue3全家桶",
@@ -43,8 +58,6 @@ export default defineConfig({
       },
       {
         text: "踩坑logs",
-        // activeMatch: "/stampPitLogs/",
-        // link: "/stampPitLogs/viteUse",
         items: [
           {
             text: "构建工具",
@@ -97,6 +110,27 @@ export default defineConfig({
           },
         ],
       },
+      "/vue3Family/": {
+        base: "/vue3Family/",
+        items: [
+          {
+            text: "pinia",
+            collapsed: false,
+            items: [
+              { text: "setup", link: "vueRouter" },
+              { text: "vue-cli", link: "vueCli" },
+            ],
+          },
+          {
+            text: "vue-router",
+            collapsed: false,
+            items: [
+              { text: "element-plus", link: "elementPlus" },
+              { text: "ant-design-vue", link: "antDesignVue" },
+            ],
+          },
+        ],
+      },
     },
 
     docFooter: {
@@ -105,7 +139,15 @@ export default defineConfig({
     },
 
     footer: {
-      message: "本网页容版权为 FarmerLiuShun，保留所有权利。",
+      message: "Free & undefined",
+    },
+  },
+  vite: {
+    server: {
+      host: "0.0.0.0",
+      port: 9996,
     },
   },
 });
+
+console.log(resolve(__dirname, "src"));

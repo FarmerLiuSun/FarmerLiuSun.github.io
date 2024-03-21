@@ -2,31 +2,31 @@
 layout: home
 
 title: 首页
-titleTemplate: FarmerLiuShun
+titleTemplate: FarmerLiu
 
 hero:
-  name: FarmerLiuShun
+  name: FarmerLiu
   text: 前端切图仔
   tagline: 一个不会切图的小前端
   image:
     src: /logo.svg
     alt: Vite
-  # actions:
-  #   - theme: brand
-  #     text: 开始
-  #     # link: https://cn.vitejs.dev/guide/
-  #     link: ./header/index.md
-  #   - theme: alt
-  #     text: 为什么选Vite？
-  #     link: https://cn.vitejs.dev/guide/why.html
-  #   - theme: alt
-  #     text: 在Github上查看
-  #     link: https://github.com/vitejs/vite
-  #   - theme: alt
-  #     text: ViteConf 23!
-  #     link: https://viteconf.org/23/
+  actions:
+    - theme: brand
+      text: 开始
+      # link: https://cn.vitejs.dev/guide/
+      link: ./header/index.md
+    - theme: alt
+      text: 为什么选Vite？
+      link: https://cn.vitejs.dev/guide/why.html
+    - theme: alt
+      text: 在Github上查看
+      link: https://github.com/vitejs/vite
+    - theme: alt
+      text: ViteConf 23!
+      link: https://viteconf.org/23/
 features:
-  - icon: html
+  - icon: 📝
     title: html
     details: 熟练使用html
   - icon: css
