@@ -3,14 +3,13 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>烟花自由--FarmerLiusun Personal website</title>
+  <title>烟花自由,念头通达</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="theme-color" content="#000000" />
   <meta name="msapplication-TileColor" content="#000000" />
   <link rel="stylesheet" href="./firework/style/index.css" />
-  <link rel="icon" href="./logo.svg" />
 </head>
 
 <body>
@@ -53,7 +52,23 @@
         <canvas id="trails-canvas"> </canvas>
         <canvas id="main-canvas"> </canvas>
       </div>
-
+      <div class="controls">
+        <div class="btn pause-btn">
+          <svg fill="white" width="24" height="24">
+            <use href="#icon-pause" xlink:href="#icon-pause"></use>
+          </svg>
+        </div>
+        <div class="btn sound-btn">
+          <svg fill="white" width="24" height="24">
+            <use href="#icon-sound-off" xlink:href="#icon-sound-off"></use>
+          </svg>
+        </div>
+        <div class="btn settings-btn">
+          <svg fill="white" width="24" height="24">
+            <use href="#icon-settings" xlink:href="#icon-settings"></use>
+          </svg>
+        </div>
+      </div>
       <div class="menu hide">
         <div class="menu__inner-wrap">
           <div class="btn btn--bright close-menu-btn">
@@ -85,6 +100,10 @@
               <select class="scaleFactor"></select>
             </div>
             <div class="form-option form-option--checkbox">
+              <label class="word-shell-label"> 文字烟花 </label>
+              <input class="word-shell" type="checkbox" />
+            </div>
+            <div class="form-option form-option--checkbox">
               <label class="auto-launch-label"> 自动放烟花 </label>
               <input class="auto-launch" type="checkbox" />
             </div>
@@ -107,19 +126,9 @@
           </form>
           <div class="credits">
             <p class="copyright">
-              您的IP：
-              <script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
-              <script type="text/javascript">
-                document.write(returnCitySN["cip"]);
-              </script>
-              <br />
               <script>
                 var mydate = new Date();
-                document.writeln(
-                  "Copyright&nbsp;&copy;&nbsp;2021 - " +
-                  mydate.getFullYear() +
-                  '&nbsp;<a target="_blank" href="https://www.nianbroken.top/">碎念_Nian</a><br />All&nbsp;Rights&nbsp;Reserved'
-                );
+                document.writeln("Copyright&nbsp;&copy;&nbsp;2021 - " + mydate.getFullYear() + '&nbsp;<a target="_blank" href="https://www.nianbroken.top/">碎念_Nian</a><br />All&nbsp;Rights&nbsp;Reserved');
               </script>
             </p>
           </div>
@@ -135,6 +144,7 @@
       </div>
     </div>
   </div>
+
   <!-- partial -->
   <script src="./firework/js/fscreen.js"></script>
   <script src="./firework/js/Stage.js"></script>
