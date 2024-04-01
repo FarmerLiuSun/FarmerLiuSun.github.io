@@ -102,7 +102,7 @@ onMounted(() => {
         box-sizing: border-box;
       }
       .container {
-        width: 800px;
+        /* width: 800px; */
         height: 1000px;
         border: 1px solid #fff;
         position: relative;

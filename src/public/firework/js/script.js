@@ -2120,7 +2120,8 @@ const Spark = {
 
 
 const soundManager = {
-	baseURL: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/',
+	// baseURL: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/329180/',
+	baseURL: './static/',
 	ctx: new (window.AudioContext || window.webkitAudioContext),
 	sources: {
 		lift: {
@@ -2186,7 +2187,7 @@ const soundManager = {
 				const fileURL = this.baseURL + fileName;
 				// Promise will resolve with decoded audio buffer.
 				const promise = fetch(fileURL)
-					.then(checkStatus)
+					.then(checkStatus ) 
 					.then(response => response.arrayBuffer())
 					.then(data => new Promise(resolve => {
 						this.ctx.decodeAudioData(data, resolve);
