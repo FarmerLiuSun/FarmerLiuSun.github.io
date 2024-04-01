@@ -52,7 +52,7 @@
         <canvas id="trails-canvas"> </canvas>
         <canvas id="main-canvas"> </canvas>
       </div>
-      <div class="controls">
+      <div class="controls" style="display: none;">
         <div class="btn pause-btn">
           <svg fill="white" width="24" height="24">
             <use href="#icon-pause" xlink:href="#icon-pause"></use>
@@ -100,10 +100,6 @@
               <select class="scaleFactor"></select>
             </div>
             <div class="form-option form-option--checkbox">
-              <label class="word-shell-label"> 文字烟花 </label>
-              <input class="word-shell" type="checkbox" />
-            </div>
-            <div class="form-option form-option--checkbox">
               <label class="auto-launch-label"> 自动放烟花 </label>
               <input class="auto-launch" type="checkbox" />
             </div>
@@ -126,9 +122,19 @@
           </form>
           <div class="credits">
             <p class="copyright">
+              您的IP：
+              <script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
+              <script type="text/javascript">
+                document.write(returnCitySN["cip"]);
+              </script>
+              <br />
               <script>
                 var mydate = new Date();
-                document.writeln("Copyright&nbsp;&copy;&nbsp;2021 - " + mydate.getFullYear() + '&nbsp;<a target="_blank" href="https://www.nianbroken.top/">碎念_Nian</a><br />All&nbsp;Rights&nbsp;Reserved');
+                document.writeln(
+                  "Copyright&nbsp;&copy;&nbsp;2021 - " +
+                  mydate.getFullYear() +
+                  '&nbsp;<a target="_blank" href="https://www.nianbroken.top/">碎念_Nian</a><br />All&nbsp;Rights&nbsp;Reserved'
+                );
               </script>
             </p>
           </div>
@@ -144,7 +150,6 @@
       </div>
     </div>
   </div>
-
   <!-- partial -->
   <script src="./firework/js/fscreen.js"></script>
   <script src="./firework/js/Stage.js"></script>
