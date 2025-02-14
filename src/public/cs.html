@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>渐变文本</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <!-- 引入 Dancing Script 字体 -->
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #000;
+      margin: 0;
+      font-family: 'Dancing Script', cursive;
+      /* 使用 Dancing Script 字体 */
+    }
+
+    .firework-text {
+      font-size: 80px;
+      /* 增大字体 */
+      font-weight: bold;
+      text-align: center;
+      background: linear-gradient(45deg, #ff6347, #ffa500, #ffeb3b, #32cd32);
+      /* 渐变颜色 */
+      -webkit-background-clip: text;
+      /* 背景渐变只应用于文本 */
+      color: transparent;
+      /* 设置文字透明，使渐变效果可见 */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="firework-text">
+    保持热爱，奔赴山海
+  </div>
+</body>
+
+</html>

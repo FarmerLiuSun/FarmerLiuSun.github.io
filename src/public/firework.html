@@ -3,16 +3,43 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>烟花自由,念头通达</title>
+  <title>保持热爱，奔赴山海</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="theme-color" content="#000000" />
   <meta name="msapplication-TileColor" content="#000000" />
   <link rel="stylesheet" href="./firework/style/index.css" />
+  <script src="./firework/js/play.js"></script>
+
+  <style>
+    .firework-text {
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      background: linear-gradient(45deg, #ff6347, #ffa500, #ffeb3b, #32cd32);
+      -webkit-background-clip: text;
+      color: transparent;
+      position: absolute;
+      top: 25%;
+      left: 50%;
+      transform: translate(-50%, 50%);
+      z-index: 666;
+      background-color: rgba(24, 12, 19, 0.5);
+      font-family: cursive;
+
+    }
+  </style>
 </head>
 
 <body>
+  <div class="firework-text">
+    保持热爱，奔赴山海
+  </div>
+  <audio id="audioPlayer" controls style="display: none;">
+    <source src="./firework/static/跳楼机.mp3" type="audio/mp3">
+    您的浏览器不支持音频播放。
+  </audio>
   <!-- partial:index.partial.html -->
   <!-- SVG Spritesheet -->
   <div style="height: 0; width: 0; position: absolute; visibility: hidden">
