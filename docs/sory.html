@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>给美丽的凌美女的道歉信</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Ma+Shan+Zheng&family=ZCOOL+QingKe+HuangYou&display=swap"
+      rel="stylesheet"
+    /> -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "ZCOOL QingKe HuangYou", cursive;
+        background: linear-gradient(135deg, #ffe8f4, #d1eeff);
+        min-height: 100vh;
+        overflow-x: hidden;
+        color: #5a3a5c;
+        position: relative;
+        padding-bottom: 60px;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        position: relative;
+        z-index: 10;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 0 20px;
+        animation: fadeIn 1.5s ease-out;
+      }
+
+      h1 {
+        font-family: "Ma Shan Zheng", cursive;
+        font-size: 2.8rem;
+        color: #d4006e;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 15px;
+      }
+
+      .heart-container {
+        position: relative;
+        height: 100px;
+        margin: 15px 0;
+      }
+
+      .heart {
+        position: absolute;
+        font-size: 100px;
+        color: #ff3e6c;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: heartbeat 1.2s infinite;
+      }
+
+      .content {
+        background: rgba(255, 255, 255, 0.92);
+        border-radius: 20px;
+        padding: 25px;
+        margin: 25px 0;
+        box-shadow: 0 8px 32px rgba(186, 104, 200, 0.15);
+        position: relative;
+        overflow: hidden;
+        animation: slideUp 1.2s ease-out;
+      }
+
+      .apology-text {
+        font-size: 1.2rem;
+        line-height: 1.7;
+        margin-bottom: 25px;
+        text-align: justify;
+      }
+
+      .signature {
+        text-align: right;
+        font-family: "Dancing Script", cursive;
+        font-size: 2.3rem;
+        color: #d4006e;
+        margin-top: 15px;
+      }
+
+      .promise-cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin: 35px 0;
+      }
+
+      .card {
+        background: white;
+        border-radius: 15px;
+        width: 220px;
+        padding: 22px 18px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 10px 25px rgba(212, 0, 110, 0.2);
+      }
+
+      .card i {
+        font-size: 2.3rem;
+        color: #ff3e6c;
+        margin-bottom: 15px;
+        display: block;
+        transition: transform 0.5s;
+      }
+
+      .card:hover i {
+        transform: scale(1.2);
+      }
+
+      .card h3 {
+        margin-bottom: 10px;
+        color: #5a3a5c;
+        font-size: 1.4rem;
+      }
+
+      .card p {
+        color: #7c5c7e;
+        font-size: 1rem;
+      }
+
+      .interactive-section {
+        text-align: center;
+        padding: 30px;
+        margin: 30px 0;
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(186, 104, 200, 0.1);
+      }
+
+      button {
+        background: linear-gradient(to right, #ff3e6c, #d4006e);
+        color: white;
+        border: none;
+        padding: 14px 36px;
+        font-size: 1.15rem;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-family: inherit;
+        box-shadow: 0 5px 15px rgba(212, 0, 110, 0.3);
+        margin: 15px 8px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      button::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -60%;
+        width: 40px;
+        height: 200%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: rotate(30deg);
+        transition: all 0.6s;
+      }
+
+      button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(212, 0, 110, 0.5);
+      }
+
+      button:hover::after {
+        left: 120%;
+      }
+
+      .hidden-message {
+        margin-top: 30px;
+        padding: 20px;
+        background: rgba(255, 225, 230, 0.9);
+        border-radius: 15px;
+        display: none;
+        animation: fadeIn 1s ease;
+      }
+
+      .memory-section {
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 20px;
+        padding: 30px;
+        margin: 30px 0;
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(186, 104, 200, 0.1);
+      }
+
+      .memory-icons {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 25px;
+        margin-top: 25px;
+      }
+
+      .memory-icon {
+        font-size: 3.5rem;
+        width: 90px;
+        height: 90px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #ffd6e7, #c2e9fb);
+        border-radius: 50%;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        animation: float 4s ease-in-out infinite;
+      }
+
+      .memory-icon:nth-child(2) {
+        animation-delay: 0.5s;
+        background: linear-gradient(135deg, #c2e9fb, #a1c4fd);
+      }
+
+      .memory-icon:nth-child(3) {
+        animation-delay: 1s;
+        background: linear-gradient(135deg, #a1c4fd, #fbc2eb);
+      }
+
+      .memory-icon:nth-child(4) {
+        animation-delay: 1.5s;
+        background: linear-gradient(135deg, #fbc2eb, #ff9a9e);
+      }
+
+      .floating-hearts {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .heart-animation {
+        position: absolute;
+        top: -50px;
+        color: rgba(255, 62, 108, 0.7);
+        font-size: 20px;
+        animation: fall 10s linear infinite;
+      }
+
+      footer {
+        text-align: center;
+        padding: 30px 0;
+        font-size: 1.1rem;
+        color: #5a3a5c;
+      }
+
+      /* 毛玻璃弹窗样式 */
+      .glass-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        backdrop-filter: blur(3px);
+        animation: fadeIn 0.5s ease;
+      }
+
+      .glass-content {
+        width: 85%;
+        max-width: 500px;
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(212, 0, 110, 0.2),
+          0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+      }
+
+      .glass-content:before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        background: linear-gradient(
+          45deg,
+          rgba(255, 225, 230, 0.6),
+          rgba(210, 238, 255, 0.6),
+          rgba(255, 225, 230, 0.6)
+        );
+        z-index: -1;
+        filter: blur(20px);
+        border-radius: 30px;
+      }
+
+      .glass-header {
+        text-align: center;
+        margin-bottom: 25px;
+        position: relative;
+      }
+
+      .glass-heart {
+        font-size: 4rem;
+        margin-bottom: 15px;
+        animation: heartbeat 1.2s infinite;
+      }
+
+      .glass-header h2 {
+        font-family: "Ma Shan Zheng", cursive;
+        font-size: 2.2rem;
+        color: #d4006e;
+      }
+
+      .glass-text {
+        text-align: center;
+        font-size: 1.5rem;
+        line-height: 1.8;
+        margin-bottom: 30px;
+        padding: 20px 0;
+        position: relative;
+      }
+
+      .glass-text p {
+        margin: 15px 0;
+        animation: textPulse 2s infinite;
+      }
+
+      .glass-text p:nth-child(1) {
+        animation-delay: 0s;
+      }
+
+      .glass-text p:nth-child(2) {
+        animation-delay: 0.5s;
+      }
+
+      .glass-text p:nth-child(3) {
+        animation-delay: 1s;
+      }
+
+      .glass-decor {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 25px;
+        font-size: 2rem;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .glass-decor span {
+        animation: spin 8s linear infinite;
+      }
+
+      .glass-decor span:nth-child(2) {
+        animation: heartbeat 1.5s infinite;
+      }
+
+      .glass-footer {
+        text-align: center;
+      }
+
+      .glass-btn {
+        background: linear-gradient(to right, #ff6b98, #d4006e);
+        color: white;
+        border: none;
+        padding: 12px 40px;
+        font-size: 1.2rem;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-family: "ZCOOL QingKe HuangYou", cursive;
+        box-shadow: 0 5px 20px rgba(212, 0, 110, 0.3);
+        position: relative;
+        overflow: hidden;
+        z-index: 2;
+      }
+
+      .glass-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(212, 0, 110, 0.5);
+      }
+
+      .glass-btn:active {
+        transform: translateY(1px);
+      }
+
+      /* Animations */
+      @keyframes heartbeat {
+        0% {
+          transform: scale(1);
+        }
+
+        14% {
+          transform: scale(1.15);
+        }
+
+        28% {
+          transform: scale(1);
+        }
+
+        42% {
+          transform: scale(1.15);
+        }
+
+        70% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes fall {
+        to {
+          transform: translateY(100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0px);
+        }
+
+        50% {
+          transform: translateY(-15px);
+        }
+
+        100% {
+          transform: translateY(0px);
+        }
+      }
+
+      @keyframes textPulse {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+
+        50% {
+          transform: scale(1.05);
+          opacity: 0.9;
+        }
+
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2.2rem;
+        }
+
+        .heart {
+          font-size: 80px;
+        }
+
+        .promise-cards {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .card {
+          width: 85%;
+        }
+
+        button {
+          padding: 12px 30px;
+          font-size: 1.1rem;
+        }
+
+        .memory-icons {
+          gap: 15px;
+        }
+
+        .memory-icon {
+          width: 70px;
+          height: 70px;
+          font-size: 2.8rem;
+        }
+
+        .glass-content {
+          padding: 25px;
+          width: 90%;
+        }
+
+        .glass-text {
+          font-size: 1.3rem;
+        }
+
+        .glass-header h2 {
+          font-size: 1.9rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 1.9rem;
+        }
+
+        .apology-text {
+          font-size: 1.1rem;
+        }
+
+        .signature {
+          font-size: 2rem;
+        }
+
+        .content {
+          padding: 20px;
+        }
+
+        .interactive-section {
+          padding: 25px 15px;
+        }
+
+        .glass-content {
+          padding: 20px 15px;
+        }
+
+        .glass-text {
+          font-size: 1.2rem;
+        }
+
+        .glass-header h2 {
+          font-size: 1.7rem;
+        }
+
+        .glass-btn {
+          padding: 10px 30px;
+          font-size: 1.1rem;
+        }
+      }
+
+      .mar-btm {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- 飘落的心形 -->
+    <div class="floating-hearts" id="hearts-container"></div>
+
+    <div class="container">
+      <header>
+        <h1>致美丽的凌美女</h1>
+        <h2>一封真诚的道歉信</h2>
+      </header>
+
+      <div class="content">
+        <div class="apology-text">
+          <p>亲爱的、温柔的、善良的、可爱的、美丽的凌美女：</p>
+          <p style="margin: 20px 0">
+            <strong
+              >这封信，是想为我之前不成熟的行为，向你郑重地说一声：<strong
+                style="color: red"
+                >对不起</strong
+              ></strong
+            >
+          </p>
+
+          <p class="mar-btm">
+            我知道，我因为一时情绪上头，做了很多幼稚又伤人的事——故意不回消息、用冷漠来逃避问题，让你一次次感到失望和心寒。
+            每次回想起来，我都觉得非常后悔，也非常自责。
+          </p>
+
+          <p class="mar-btm">
+            我不该在你追剧没及时回复时就闹脾气，更不该在你主动联系我时还故意冷落你。我没有及时意识到自己的问题，反而让你承受我的负面情绪，这是我最自私、最不应该的地方。
+          </p>
+
+          <p class="mar-btm">
+            生活本来就不容易，能一起轻松“吃吃瓜”、聊聊天是多么美好的事。而我却在你愿意与我分享时，不仅没有好好回应，还泼你冷水、计较那些无关紧要的小事……真的非常抱歉。
+          </p>
+
+          <p class="mar-btm">
+            我没有谈过恋爱，也不太懂得如何与异性相处，有时候显得木讷、不够体贴。但这绝不是我可以伤害你的理由。
+            作为男生，我应该更主动、更体贴、更勇敢、脸皮更厚一点，而不是一味被动等待。
+          </p>
+
+          <p class="mar-btm">
+            我知道自己需要学习成长的地方还很多。我愿意努力成长，学着更懂你、更珍惜你。为了配得上美好的你，也为了成为更好的自己，我一定会认真改变。
+          </p>
+
+          <p class="mar-btm">
+            能遇见你真的很不容易，真的是很特别的缘分。
+            感觉自己之前已经错过你一次了，这次我真的不想再错过了。
+            我不想因为我的过错，就这样错过你。请你给我一个改过自新、重新开始的机会，好吗？
+          </p>
+
+          <p>表达我的诚意，我想为你做两件小事</p>
+          <ul style="padding-left: 30px; margin: 15px 0">
+            <li>
+              🧡 请你吃你爱吃的榴莲（菲律宾、马来西亚的榴莲11月还是应季的）
+            </li>
+            <li>📺 给你充一年的视频会员，希望你看得开心</li>
+          </ul>
+
+          <p>
+            <strong
+              >最后，我想再一次诚恳地对你说：
+              <p
+                class="mar-btm"
+                style="padding: 10px; color: red; font-size: 23px"
+              >
+                真的很对不起！
+              </p>
+            </strong>
+          </p>
+        </div>
+
+        <div class="signature">
+          初犯小刘<br />
+          2025年10月30日
+        </div>
+      </div>
+
+      <div class="promise-cards">
+        <!-- <div class="card">
+          <i class="fas fa-heart"></i>
+          <h3>优先回复</h3>
+          <p>你的信息永远是最优先的（毋庸置疑）</p>
+        </div> -->
+        <!-- <div class="card">
+          <i class="fas fa-film"></i>
+          <h3>补偿</h3>
+          <p>请你看电影👉👈</p>
+        </div> -->
+        <!-- <div class="card">
+          <i class="fas fa-phone-volume"></i>
+          <h3>及时回应</h3>
+          <p>第一时间回复你的消息</p>
+        </div> -->
+      </div>
+    </div>
+
+    <!-- 毛玻璃弹窗 -->
+    <div class="glass-modal" id="glass-modal">
+      <div class="glass-content">
+        <div class="glass-header">
+          <div class="glass-heart">❤️</div>
+          <h2>原谅我吧～</h2>
+        </div>
+        <div class="glass-text">
+          <p>原谅我吧～🥺</p>
+          <p>原谅我吧～˃ ˄ ˂̥̥</p>
+          <p>原谅我吧～˃̣̣̥᷄⌓˂̣̣̥᷅</p>
+          <div class="glass-decor">
+            <span>💫</span>
+            <span>💖</span>
+            <span>💫</span>
+          </div>
+        </div>
+        <div class="glass-footer">
+          <button class="glass-btn" id="glass-forgive">原谅你啦～</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // 创建飘落的心形
+      function createHearts() {
+        const container = document.getElementById("hearts-container");
+        const heartCount = 50;
+
+        for (let i = 0; i < heartCount; i++) {
+          const heart = document.createElement("div");
+          heart.innerHTML = "❤️";
+          heart.classList.add("heart-animation");
+
+          // 随机位置
+          heart.style.left = Math.random() * 100 + "vw";
+
+          // 随机动画延迟和持续时间
+          heart.style.animationDelay = Math.random() * 5 + "s";
+          heart.style.animationDuration = Math.random() * 5 + 5 + "s";
+
+          // 随机大小
+          const size = Math.random() * 20 + 10;
+          heart.style.fontSize = size + "px";
+
+          container.appendChild(heart);
+        }
+      }
+
+      // 按钮交互
+      // document
+      //   .getElementById("forgive-btn")
+      //   .addEventListener("click", function () {
+      //     const message = document.getElementById("message");
+      //     message.style.display = "block";
+
+      //     // 添加庆祝效果
+      //     for (let i = 0; i < 20; i++) {
+      //       setTimeout(() => {
+      //         createFloatingHeart();
+      //       }, i * 200);
+      //     }
+
+      //     // 添加背景庆祝动画
+      //     document.body.style.animation = "celebrate 1s";
+      //     setTimeout(() => {
+      //       document.body.style.animation = "";
+      //     }, 1000);
+      //   });
+
+      // document.getElementById("try-btn").addEventListener("click", function () {
+      //   const modal = document.getElementById("glass-modal");
+      //   modal.style.display = "flex";
+
+      //   // 添加一些随机漂浮的心形
+      //   for (let i = 0; i < 8; i++) {
+      //     setTimeout(() => {
+      //       createGlassHeart(modal);
+      //     }, i * 300);
+      //   }
+      // });
+
+      // 添加弹窗内按钮事件
+      document
+        .getElementById("glass-forgive")
+        .addEventListener("click", function () {
+          const modal = document.getElementById("glass-modal");
+          modal.style.display = "none";
+
+          // 显示原来的原谅消息
+          const message = document.getElementById("message");
+          message.style.display = "block";
+
+          // 添加庆祝效果
+          for (let i = 0; i < 20; i++) {
+            setTimeout(() => {
+              createFloatingHeart();
+            }, i * 200);
+          }
+        });
+
+      // 创建浮动心形函数
+      function createFloatingHeart() {
+        const heart = document.createElement("div");
+        heart.innerHTML = "❤️";
+        heart.style.position = "fixed";
+        heart.style.fontSize = "30px";
+        heart.style.color = "#ff3e6c";
+        heart.style.userSelect = "none";
+        heart.style.zIndex = "1000";
+
+        // 随机起始位置
+        const startX = Math.random() * window.innerWidth;
+        heart.style.left = startX + "px";
+        heart.style.bottom = "-50px";
+
+        document.body.appendChild(heart);
+
+        // 动画
+        const animation = heart.animate(
+          [
+            { bottom: "-50px", opacity: 1, transform: "scale(0.5)" },
+            { bottom: "50%", opacity: 1, transform: "scale(1.2)" },
+            { bottom: "100%", opacity: 0, transform: "scale(0.5)" },
+          ],
+          {
+            duration: 2000,
+            easing: "ease-out",
+          }
+        );
+
+        // 动画结束后移除元素
+        animation.onfinish = () => {
+          heart.remove();
+        };
+      }
+
+      // 创建玻璃弹窗内的心形
+      function createGlassHeart(container) {
+        const heart = document.createElement("div");
+        heart.innerHTML = "❤️";
+        heart.style.position = "absolute";
+        heart.style.fontSize = Math.random() * 30 + 20 + "px";
+        heart.style.color = "rgba(212, 0, 110, 0.7)";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.top = Math.random() * 100 + "%";
+        heart.style.opacity = "0";
+        heart.style.transform = "scale(0)";
+        heart.style.transition = "all 1s ease";
+        heart.style.zIndex = "1";
+        heart.style.pointerEvents = "none";
+
+        container.appendChild(heart);
+
+        setTimeout(() => {
+          heart.style.opacity = "1";
+          heart.style.transform = "scale(1)";
+        }, 10);
+
+        setTimeout(() => {
+          heart.style.opacity = "0";
+          heart.style.transform = "scale(0) translateY(-50px)";
+          setTimeout(() => {
+            heart.remove();
+          }, 1000);
+        }, 2000);
+      }
+
+      // 页面加载完成后初始化
+      window.addEventListener("load", function () {
+        createHearts();
+
+        // 添加动态样式
+        const style = document.createElement("style");
+        style.innerHTML = `
+                @keyframes celebrate {
+                    0% { background: linear-gradient(135deg, #ffe8f4, #d1eeff); }
+                    20% { background: linear-gradient(135deg, #ffd6e7, #c2e9fb); }
+                    40% { background: linear-gradient(135deg, #ffc2d9, #a1c4fd); }
+                    60% { background: linear-gradient(135deg, #ffafcc, #8fd3f4); }
+                    80% { background: linear-gradient(135deg, #ff9ebb, #7bc9ff); }
+                    100% { background: linear-gradient(135deg, #ffe8f4, #d1eeff); }
+                }
+            `;
+        document.head.appendChild(style);
+      });
+    </script>
+  </body>
+</html>
