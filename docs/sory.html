@@ -8,10 +8,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <!-- <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Ma+Shan+Zheng&family=ZCOOL+QingKe+HuangYou&display=swap"
-      rel="stylesheet"
-    /> -->
     <style>
       * {
         margin: 0;
@@ -20,7 +16,7 @@
       }
 
       body {
-        font-family: "ZCOOL QingKe HuangYou", cursive;
+        font-family: "Arial", sans-serif;
         background: linear-gradient(135deg, #ffe8f4, #d1eeff);
         min-height: 100vh;
         overflow-x: hidden;
@@ -44,7 +40,7 @@
       }
 
       h1 {
-        font-family: "Ma Shan Zheng", cursive;
+        font-family: "Arial", sans-serif;
         font-size: 2.8rem;
         color: #d4006e;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
@@ -86,7 +82,7 @@
 
       .signature {
         text-align: right;
-        font-family: "Dancing Script", cursive;
+        font-family: "Arial", sans-serif;
         font-size: 2.3rem;
         color: #d4006e;
         margin-top: 15px;
@@ -266,7 +262,7 @@
         color: #5a3a5c;
       }
 
-      /* 毛玻璃弹窗样式 */
+      /* 生日验证弹窗样式 */
       .glass-modal {
         position: fixed;
         top: 0;
@@ -274,7 +270,7 @@
         width: 100%;
         height: 100%;
         background: rgba(0, 0, 0, 0.4);
-        display: none;
+        display: flex;
         align-items: center;
         justify-content: center;
         z-index: 2000;
@@ -327,7 +323,7 @@
       }
 
       .glass-header h2 {
-        font-family: "Ma Shan Zheng", cursive;
+        font-family: "Arial", sans-serif;
         font-size: 2.2rem;
         color: #d4006e;
       }
@@ -388,7 +384,7 @@
         border-radius: 50px;
         cursor: pointer;
         transition: all 0.3s;
-        font-family: "ZCOOL QingKe HuangYou", cursive;
+        font-family: "Arial", sans-serif;
         box-shadow: 0 5px 20px rgba(212, 0, 110, 0.3);
         position: relative;
         overflow: hidden;
@@ -402,6 +398,49 @@
 
       .glass-btn:active {
         transform: translateY(1px);
+      }
+
+      /* 生日输入框样式 */
+      .birthday-input {
+        width: 100%;
+        padding: 15px;
+        margin: 20px 0;
+        font-size: 1.2rem;
+        text-align: center;
+        border: 2px solid #ff6b98;
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.8);
+        outline: none;
+        transition: all 0.3s;
+      }
+
+      .birthday-input:focus {
+        border-color: #d4006e;
+        box-shadow: 0 0 10px rgba(212, 0, 110, 0.3);
+      }
+
+      .error-message {
+        color: #ff3e6c;
+        margin-top: 10px;
+        font-size: 1rem;
+        display: none;
+      }
+
+      /* 原谅弹窗样式 */
+      .forgiveness-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        backdrop-filter: blur(3px);
+        animation: fadeIn 0.5s ease;
+        display: none;
       }
 
       /* Animations */
@@ -554,7 +593,7 @@
         }
 
         .signature {
-          font-size: 2rem;
+          font-size: 1.5rem;
         }
 
         .content {
@@ -593,9 +632,58 @@
     <!-- 飘落的心形 -->
     <div class="floating-hearts" id="hearts-container"></div>
 
-    <div class="container">
+    <!-- 生日验证弹窗 -->
+    <div class="glass-modal" id="birthday-modal">
+      <div class="glass-content">
+        <div class="glass-header">
+          <div class="glass-heart">🔐</div>
+          <h2>密码验证</h2>
+        </div>
+        <div class="glass-text">
+          <p>你的生日</p>
+          <p>(四位数字，例如：0101)</p>
+          <input
+            type="text"
+            class="birthday-input"
+            id="birthday-input"
+            maxlength="4"
+            placeholder="请输入生日"
+          />
+          <p class="error-message" id="error-message">生日不正确，请重新输入</p>
+        </div>
+        <div class="glass-footer">
+          <button class="glass-btn" id="verify-birthday">验证</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 原谅弹窗 -->
+    <div class="forgiveness-modal" id="forgiveness-modal">
+      <div class="glass-content">
+        <div class="glass-header">
+          <div class="glass-heart">❤️</div>
+          <h2>原谅我吧～</h2>
+        </div>
+        <div class="glass-text">
+          <p>原谅我吧～🥺</p>
+          <p>原谅我吧～˃ ˄ ˂̥̥</p>
+          <p>原谅我吧～˃̣̣̥᷄⌓˂̣̣̥᷅</p>
+          <div class="glass-decor">
+            <span>💫</span>
+            <span>💖</span>
+            <span>💫</span>
+          </div>
+        </div>
+        <div class="glass-footer">
+          <button class="glass-btn" id="forgive-btn">原谅你啦～</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主内容 -->
+    <div class="container" id="main-content" style="display: none">
       <header>
-        <h1>致美丽的凌美女</h1>
+        <h1>致凌美女</h1>
         <h2>一封真诚的道歉信</h2>
       </header>
 
@@ -621,7 +709,7 @@
           </p>
 
           <p class="mar-btm">
-            生活本来就不容易，能一起轻松“吃吃瓜”、聊聊天是多么美好的事。而我却在你愿意与我分享时，不仅没有好好回应，还泼你冷水、计较那些无关紧要的小事……真的非常抱歉。
+            生活本来就不容易，能一起轻松"吃吃瓜"、聊聊天是多么美好的事。而我却在你愿意与我分享时，不仅没有好好回应，还泼你冷水、计较那些无关紧要的小事……真的非常抱歉。
           </p>
 
           <p class="mar-btm">
@@ -644,7 +732,8 @@
             <li>
               🧡 请你吃你爱吃的榴莲（菲律宾、马来西亚的榴莲11月还是应季的）
             </li>
-            <li>📺 给你充一年的视频会员，希望你看得开心</li>
+            <li>🍕 请你吃爱吃的零食</li>
+            <li>📺 为你充一年的视频会员，希望你看得开心</li>
           </ul>
 
           <p>
@@ -661,51 +750,18 @@
         </div>
 
         <div class="signature">
-          检讨人小刘<br />
+          检讨人刘顺平<br />
           2025年10月30日
         </div>
       </div>
 
-      <div class="promise-cards">
-        <!-- <div class="card">
-          <i class="fas fa-heart"></i>
-          <h3>优先回复</h3>
-          <p>你的信息永远是最优先的（毋庸置疑）</p>
-        </div> -->
-        <!-- <div class="card">
-          <i class="fas fa-film"></i>
-          <h3>补偿</h3>
-          <p>请你看电影👉👈</p>
-        </div> -->
-        <!-- <div class="card">
-          <i class="fas fa-phone-volume"></i>
-          <h3>及时回应</h3>
-          <p>第一时间回复你的消息</p>
-        </div> -->
-      </div>
-    </div>
-
-    <!-- 毛玻璃弹窗 -->
-    <div class="glass-modal" id="glass-modal">
-      <div class="glass-content">
-        <div class="glass-header">
-          <div class="glass-heart">❤️</div>
-          <h2>原谅我吧～</h2>
+      <!-- <div class="interactive-section">
+        <button id="show-forgiveness">请求原谅</button>
+        <div class="hidden-message" id="message">
+          <h3>谢谢你的原谅！🥰</h3>
+          <p>我会好好珍惜这次机会，努力成为更好的自己！</p>
         </div>
-        <div class="glass-text">
-          <p>原谅我吧～🥺</p>
-          <p>原谅我吧～˃ ˄ ˂̥̥</p>
-          <p>原谅我吧～˃̣̣̥᷄⌓˂̣̣̥᷅</p>
-          <div class="glass-decor">
-            <span>💫</span>
-            <span>💖</span>
-            <span>💫</span>
-          </div>
-        </div>
-        <div class="glass-footer">
-          <button class="glass-btn" id="glass-forgive">原谅你啦～</button>
-        </div>
-      </div>
+      </div> -->
     </div>
 
     <script>
@@ -734,49 +790,53 @@
         }
       }
 
-      // 按钮交互
+      // 生日验证逻辑
+      document
+        .getElementById("verify-birthday")
+        .addEventListener("click", function () {
+          const input = document.getElementById("birthday-input").value;
+          const errorMessage = document.getElementById("error-message");
+
+          if (input === "1027") {
+            // 验证成功，隐藏生日弹窗，显示主内容
+            document.getElementById("birthday-modal").style.display = "none";
+            document.getElementById("main-content").style.display = "block";
+          } else {
+            // 验证失败，显示错误信息
+            errorMessage.style.display = "block";
+            // 清空输入框
+            document.getElementById("birthday-input").value = "";
+            // 添加震动效果
+            document.getElementById("birthday-input").style.animation =
+              "shake 0.5s";
+            setTimeout(() => {
+              document.getElementById("birthday-input").style.animation = "";
+            }, 500);
+          }
+        });
+
+      // 允许按Enter键提交
+      document
+        .getElementById("birthday-input")
+        .addEventListener("keyup", function (event) {
+          if (event.key === "Enter") {
+            document.getElementById("verify-birthday").click();
+          }
+        });
+
+      // 请求原谅按钮逻辑
       // document
-      //   .getElementById("forgive-btn")
+      //   .getElementById("show-forgiveness")
       //   .addEventListener("click", function () {
-      //     const message = document.getElementById("message");
-      //     message.style.display = "block";
-
-      //     // 添加庆祝效果
-      //     for (let i = 0; i < 20; i++) {
-      //       setTimeout(() => {
-      //         createFloatingHeart();
-      //       }, i * 200);
-      //     }
-
-      //     // 添加背景庆祝动画
-      //     document.body.style.animation = "celebrate 1s";
-      //     setTimeout(() => {
-      //       document.body.style.animation = "";
-      //     }, 1000);
+      //     document.getElementById("forgiveness-modal").style.display = "flex";
       //   });
 
-      // document.getElementById("try-btn").addEventListener("click", function () {
-      //   const modal = document.getElementById("glass-modal");
-      //   modal.style.display = "flex";
-
-      //   // 添加一些随机漂浮的心形
-      //   for (let i = 0; i < 8; i++) {
-      //     setTimeout(() => {
-      //       createGlassHeart(modal);
-      //     }, i * 300);
-      //   }
-      // });
-
-      // 添加弹窗内按钮事件
+      // 原谅按钮逻辑
       document
-        .getElementById("glass-forgive")
+        .getElementById("forgive-btn")
         .addEventListener("click", function () {
-          const modal = document.getElementById("glass-modal");
-          modal.style.display = "none";
-
-          // 显示原来的原谅消息
-          const message = document.getElementById("message");
-          message.style.display = "block";
+          document.getElementById("forgiveness-modal").style.display = "none";
+          document.getElementById("message").style.display = "block";
 
           // 添加庆祝效果
           for (let i = 0; i < 20; i++) {
@@ -822,37 +882,6 @@
         };
       }
 
-      // 创建玻璃弹窗内的心形
-      function createGlassHeart(container) {
-        const heart = document.createElement("div");
-        heart.innerHTML = "❤️";
-        heart.style.position = "absolute";
-        heart.style.fontSize = Math.random() * 30 + 20 + "px";
-        heart.style.color = "rgba(212, 0, 110, 0.7)";
-        heart.style.left = Math.random() * 100 + "%";
-        heart.style.top = Math.random() * 100 + "%";
-        heart.style.opacity = "0";
-        heart.style.transform = "scale(0)";
-        heart.style.transition = "all 1s ease";
-        heart.style.zIndex = "1";
-        heart.style.pointerEvents = "none";
-
-        container.appendChild(heart);
-
-        setTimeout(() => {
-          heart.style.opacity = "1";
-          heart.style.transform = "scale(1)";
-        }, 10);
-
-        setTimeout(() => {
-          heart.style.opacity = "0";
-          heart.style.transform = "scale(0) translateY(-50px)";
-          setTimeout(() => {
-            heart.remove();
-          }, 1000);
-        }, 2000);
-      }
-
       // 页面加载完成后初始化
       window.addEventListener("load", function () {
         createHearts();
@@ -860,15 +889,20 @@
         // 添加动态样式
         const style = document.createElement("style");
         style.innerHTML = `
-                @keyframes celebrate {
-                    0% { background: linear-gradient(135deg, #ffe8f4, #d1eeff); }
-                    20% { background: linear-gradient(135deg, #ffd6e7, #c2e9fb); }
-                    40% { background: linear-gradient(135deg, #ffc2d9, #a1c4fd); }
-                    60% { background: linear-gradient(135deg, #ffafcc, #8fd3f4); }
-                    80% { background: linear-gradient(135deg, #ff9ebb, #7bc9ff); }
-                    100% { background: linear-gradient(135deg, #ffe8f4, #d1eeff); }
-                }
-            `;
+          @keyframes celebrate {
+            0% { background: linear-gradient(135deg, #ffe8f4, #d1eeff); }
+            20% { background: linear-gradient(135deg, #ffd6e7, #c2e9fb); }
+            40% { background: linear-gradient(135deg, #ffc2d9, #a1c4fd); }
+            60% { background: linear-gradient(135deg, #ffafcc, #8fd3f4); }
+            80% { background: linear-gradient(135deg, #ff9ebb, #7bc9ff); }
+            100% { background: linear-gradient(135deg, #ffe8f4, #d1eeff); }
+          }
+          @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+          }
+        `;
         document.head.appendChild(style);
       });
     </script>
