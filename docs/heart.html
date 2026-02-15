@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>情人节 · 无尽飘雪 | 移动适配</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;
+            background: #0a0a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            padding: 10px;
+        }
+        /* 容器：自适应宽度，最大不超过画布原始宽度，保持美观 */
+        .container {
+            width: 100%;
+            max-width: 800px;           /* 与画布原始宽度一致，避免在大屏上过大 */
+            border-radius: 2rem;
+            box-shadow: 0 0 30px rgba(255, 80, 120, 0.6), 0 0 60px rgba(180, 100, 255, 0.4);
+            background: #0d0d1a;
+            padding: 8px;               /* 内边距稍微缩小，适应小屏 */
+        }
+        /* 画布：宽度占满容器，高度自动保持原始宽高比（800:600 = 4:3） */
+        canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 1.5rem;
+            box-shadow: inset 0 0 30px rgba(255, 200, 230, 0.3);
+            cursor: pointer;
+            transition: filter 0.2s;
+        }
+        canvas:hover {
+            filter: drop-shadow(0 0 15px #ff99aa);
+        }
+        /* 标题：默认较小，大屏时恢复原大小 */
+        .caption {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            font-weight: 300;
+            color: #ffc0cb;
+            text-shadow: 0 0 10px #ff3b6f, 0 0 20px #ffb3c6;
+            animation: glowPulse 2s infinite ease-in-out;
+        }
+        @media (min-width: 600px) {
+            .caption {
+                font-size: 1.5rem;
+                letter-spacing: 4px;
+                margin-top: 20px;
+            }
+        }
+        @keyframes glowPulse {
+            0% { opacity: 0.8; text-shadow: 0 0 5px #ff99aa, 0 0 15px #ff3b6f; }
+            50% { opacity: 1; text-shadow: 0 0 20px #ffb3c6, 0 0 40px #ff6f91, 0 0 60px #ff3b6f; }
+            100% { opacity: 0.8; text-shadow: 0 0 5px #ff99aa, 0 0 15px #ff3b6f; }
+        }
+    </style>
+</head>
+<body>
+<div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+    <div class="container">
+        <canvas id="heartCanvas" width="800" height="600"></canvas>
+    </div>
+    
+</div>
+
+<script>
+(function() {
+    const canvas = document.getElementById('heartCanvas');
+    const ctx = canvas.getContext('2d');
+
+    const width = 800, height = 600;
+    const centerX = width / 2;
+    const centerY = height / 2;
+
+    // ========== 配置参数 ==========
+    const HEART_BASE_SIZE = 13;
+    const GLOW_PARTICLE_COUNT = 70;
+    const FLOATING_ITEM_COUNT = 150;        // 增加数量到150，保证雪花连绵不绝
+
+    let glowParticles = [];
+    // 符号池：包含雪花和爱心
+    const floatingSymbols = ['❄️', '❤️', '🌸', '✨', '💖', '❄️', '🎈', '🌟', '❄️', '☃️', '❄️', '💫', '❄️', '❤️'];
+    let floatingItems = [];
+
+    let time = 0;
+
+    // ========== 初始化 ==========
+    function init() {
+        // 光环粒子
+        for (let i = 0; i < GLOW_PARTICLE_COUNT; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const radius = 180 + Math.random() * 70;
+            const speed = (0.002 + Math.random() * 0.006) * (Math.random() > 0.5 ? 1 : -1);
+            const size = 2 + Math.random() * 5;
+            const hue = 320 + Math.random() * 60;
+            const color = `hsla(${hue}, 90%, 70%, ${0.5 + Math.random() * 0.4})`;
+            glowParticles.push({
+                angle, radius, speed, size, color,
+                baseRadius: radius,
+                pulseOffset: Math.random() * Math.PI * 2
+            });
+        }
+
+        // 初始化飘落符号：让所有符号一开始就分布在画布上方和内部，确保立即有下落效果
+        for (let i = 0; i < FLOATING_ITEM_COUNT; i++) {
+            resetFloatingItem(i, true);
+        }
+    }
+
+    // 重置一个飘落项
+    function resetFloatingItem(index, initial = false) {
+        const symbol = floatingSymbols[Math.floor(Math.random() * floatingSymbols.length)];
+        const x = 20 + Math.random() * (width - 40);
+        let y;
+        if (initial) {
+            // 初始化时，让一部分在画布内，一部分在画布上方，保证一开始就有雪花进入
+            y = Math.random() * height * 1.5 - height * 0.5; // 范围 -300 ~ 600
+        } else {
+            // 重置时，强制从顶部外侧出现（-10 ~ -60）
+            y = -10 - Math.random() * 50;   // -10 ~ -60
+        }
+        const size = 16 + Math.random() * 24;     // 大小
+        // 下落速度：0.3 ~ 1.0 之间，适中，确保可见且持续
+        const speedY = 0.3 + Math.random() * 0.7;   // 0.3 ~ 1.0
+        const speedX = (Math.random() - 0.5) * 0.2; // 左右飘移
+        const opacity = 0.4 + Math.random() * 0.5;
+        const hue = 300 + Math.random() * 60;
+        const color = `hsla(${hue}, 80%, 70%, ${opacity})`;
+        floatingItems[index] = {
+            x, y, size, speedY, speedX, symbol, color,
+            baseOpacity: opacity,
+        };
+    }
+
+    // 填充数组
+    for (let i = 0; i < FLOATING_ITEM_COUNT; i++) floatingItems.push({});
+    init();
+
+    // ========== 绘制心形 ==========
+    function drawHeartPath(ctx, cx, cy, scaleFactor) {
+        const size = HEART_BASE_SIZE * scaleFactor;
+        ctx.beginPath();
+        let firstPoint = true;
+        for (let t = 0; t <= Math.PI * 2; t += 0.05) {
+            const x = 16 * Math.pow(Math.sin(t), 3);
+            const y = - (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+            const canvasX = cx + x * size;
+            const canvasY = cy + y * size;
+            if (firstPoint) {
+                ctx.moveTo(canvasX, canvasY);
+                firstPoint = false;
+            } else {
+                ctx.lineTo(canvasX, canvasY);
+            }
+        }
+        ctx.closePath();
+    }
+
+    function drawMainHeart(pulse) {
+        const scale = 0.9 + 0.25 * (0.5 + 0.5 * Math.sin(pulse * 5));
+        ctx.shadowColor = '#ff9acb';
+        ctx.shadowBlur = 40;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+
+        const gradient = ctx.createRadialGradient(centerX - 30, centerY - 30, 20, centerX, centerY, 200);
+        gradient.addColorStop(0, '#ffb6c1');
+        gradient.addColorStop(0.4, '#ff4d6d');
+        gradient.addColorStop(0.8, '#b3002d');
+        gradient.addColorStop(1, '#59001a');
+        ctx.fillStyle = gradient;
+
+        drawHeartPath(ctx, centerX, centerY, scale);
+        ctx.fill();
+
+        ctx.shadowBlur = 30;
+        ctx.shadowColor = '#fff0f5';
+        ctx.fillStyle = 'rgba(255, 240, 245, 0.25)';
+        drawHeartPath(ctx, centerX - 5, centerY - 5, scale * 0.85);
+        ctx.fill();
+
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(centerX - 40, centerY - 40, 12, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(centerX + 30, centerY - 20, 8, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 240, 200, 0.35)';
+        ctx.fill();
+
+        ctx.shadowBlur = 0;
+        ctx.shadowColor = 'transparent';
+    }
+
+    // ========== 光环粒子 ==========
+    function updateGlowParticles() {
+        for (let p of glowParticles) {
+            p.angle += p.speed;
+            const radiusPulse = 1 + 0.05 * Math.sin(time * 3 + p.pulseOffset);
+            const currentRadius = p.radius * radiusPulse;
+            const x = centerX + Math.cos(p.angle) * currentRadius;
+            const y = centerY + Math.sin(p.angle) * currentRadius * 0.85;
+
+            const sizeVar = 1 + 0.2 * Math.sin(time * 8 + p.angle);
+            const drawSize = p.size * sizeVar;
+            // 确保半径为正
+            const safeRadius = Math.max(0.1, drawSize);
+
+            ctx.beginPath();
+            ctx.arc(x, y, safeRadius, 0, Math.PI * 2);
+            const baseHue = 330 + 20 * Math.sin(p.angle * 2 + time);
+            ctx.fillStyle = `hsla(${baseHue}, 90%, 70%, 0.8)`;
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = '#ffa5c3';
+            ctx.fill();
+        }
+        ctx.shadowBlur = 0;
+    }
+
+    // ========== 飘落符号更新（核心循环，持续不断）==========
+    function updateFloatingItems() {
+        for (let i = 0; i < floatingItems.length; i++) {
+            const item = floatingItems[i];
+            // 移动
+            item.x += item.speedX;
+            item.y += item.speedY;
+
+            // 透明度变化，增加灵动感
+            const opacityVar = 0.7 + 0.3 * Math.sin(time * 3 + i);
+            ctx.globalAlpha = Math.min(1, Math.max(0.2, item.baseOpacity * opacityVar));
+
+            // 绘制符号
+            ctx.font = `${item.size}px 'Segoe UI', 'Arial Unicode MS', 'PingFang SC', 'Microsoft YaHei', sans-serif`;
+            ctx.fillStyle = item.color;
+            ctx.shadowBlur = 12;
+            ctx.shadowColor = '#ff99bb';
+            ctx.fillText(item.symbol, item.x, item.y);
+
+            // 重置条件：飘出底部或左右边界 -> 立刻重置到顶部外侧，实现无限循环
+            if (item.y > height + 50 || item.x < -50 || item.x > width + 50) {
+                // 重置为从顶部重新出现
+                item.y = -20 - Math.random() * 40;   // 强制回到顶部上方
+                item.x = 20 + Math.random() * (width - 40);
+                // 随机重置速度和大小，让飘落更自然
+                item.speedY = 0.3 + Math.random() * 0.7;
+                item.speedX = (Math.random() - 0.5) * 0.2;
+                item.size = 16 + Math.random() * 24;
+                item.symbol = floatingSymbols[Math.floor(Math.random() * floatingSymbols.length)];
+                item.color = `hsla(${300 + Math.random()*60}, 80%, 70%, ${0.4 + Math.random()*0.5})`;
+                item.baseOpacity = 0.4 + Math.random() * 0.5;
+            }
+        }
+        ctx.globalAlpha = 1.0;
+        ctx.shadowBlur = 0;
+    }
+
+    // ========== 额外闪烁星光（修复负半径问题）==========
+    function drawExtraSparkles() {
+        const sparkleCount = 15;
+        for (let s = 0; s < sparkleCount; s++) {
+            const angle = (time * 2 + s * 1.5) % (Math.PI * 2);
+            const dist = 100 + 40 * Math.sin(time * 3 + s);
+            const x = centerX + Math.cos(angle) * dist;
+            const y = centerY + Math.sin(angle) * dist * 0.7;
+            // 计算半径，确保不小于0.1
+            let size = 1.5 + 2 * Math.sin(time * 10 + s);
+            size = Math.max(0.1, size);
+            ctx.beginPath();
+            ctx.arc(x, y, size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 200, 220, ${0.4 + 0.2 * Math.sin(time*5+s)})`;
+            ctx.shadowBlur = 12;
+            ctx.shadowColor = '#ffb3d9';
+            ctx.fill();
+        }
+        ctx.shadowBlur = 0;
+    }
+
+    // ========== 背景 ==========
+    function drawBackground() {
+        const gradient = ctx.createRadialGradient(centerX, centerY, 100, centerX, centerY, 500);
+        gradient.addColorStop(0, '#1a1035');
+        gradient.addColorStop(0.5, '#0d0b1a');
+        gradient.addColorStop(1, '#03010a');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, width, height);
+
+        // 静态星星
+        for (let i = 0; i < 60; i++) {
+            if (i % 2 === 0) continue;
+            const x = (i * 37) % width;
+            const y = (i * 23) % height;
+            const starSize = 1 + (i % 3);
+            ctx.beginPath();
+            ctx.arc(x, y, starSize, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 200, ${0.3+0.1*Math.sin(i+time)})`;
+            ctx.fill();
+        }
+    }
+
+    // ========== 动画循环 ==========
+    function animate() {
+        time += 0.02;
+
+        drawBackground();
+        updateFloatingItems();   // 关键：雪花持续循环
+        drawMainHeart(time);
+        drawExtraSparkles();
+        updateGlowParticles();
+
+        // 底部装饰文字
+        ctx.font = 'italic 20px "Brush Script MT", "Lucida Handwriting", cursive';
+        ctx.fillStyle = '#ffd9e6';
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = '#ff2e5b';
+        ctx.font = '18px "Segoe UI", sans-serif';
+        ctx.fillStyle = '#ffb6d1';
+
+
+        ctx.shadowBlur = 0;
+        ctx.shadowColor = 'transparent';
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // 点击互动
+    canvas.addEventListener('click', () => {
+        for (let p of glowParticles) {
+            p.color = `hsla(${300 + Math.random()*60}, 90%, 70%, 0.8)`;
+        }
+        document.querySelector('.caption').style.transform = 'scale(1.1)';
+        setTimeout(() => document.querySelector('.caption').style.transform = 'scale(1)', 200);
+    });
+
+})();
+</script>
+</body>
+</html>
